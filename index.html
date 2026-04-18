@@ -1,0 +1,143 @@
+```html id="fullcode"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cafe Appeliano TV</title>
+
+<meta name="description" content="Watch live sports TV online - Cafe Appeliano TV">
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: black;
+    color: white;
+}
+
+.header {
+    text-align: center;
+    padding: 15px;
+    font-size: 22px;
+    color: red;
+    font-weight: bold;
+}
+
+.search-box {
+    text-align: center;
+    padding: 10px;
+}
+
+.search-box input {
+    width: 90%;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+}
+
+.banner img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.player {
+    padding: 10px;
+}
+
+video {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.channels {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 10px;
+    padding: 10px;
+}
+
+.channel {
+    background: #111;
+    padding: 10px;
+    text-align: center;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.channel img {
+    width: 60px;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: yellow;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">Cafe Appeliano TV</div>
+
+<div class="search-box">
+<input type="text" id="search" placeholder="Search..." onkeyup="searchChannel()">
+</div>
+
+<div class="banner">
+<img src="https://repgyetdcodkynrbxocg.supabase.co/storage/v1/object/public/images/telegram-1776452529240-5fe8d738.jpg">
+</div>
+
+<div class="player">
+<video id="videoPlayer" controls></video>
+</div>
+
+<div class="channels">
+
+<div class="channel" data-name="T Sports" onclick="playChannel('https://backend.plusbox.tv/TSports/index.fmp4.m3u8?token=77ae7a23b7dc536205c1dc07011f02c1a3b276cd-657e8cbb9649089226299a099e1cbb69-1776516933-1776506133')">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXEt0mLEbCc7_nwOltfVTtRh95_ytannxqgaeskHI0rfCxd85v3LSaeZ4&s=10">
+<p>T Sports</p>
+</div>
+
+<div class="channel" data-name="Sony Ten 1" onclick="playChannel('https://backend.plusbox.tv/SonyTen1HD/tracks-v1/index.fmp4.m3u8?token=3e9adc1b1760464ad6bb3216f51d8a508fa7b15e-9968098cb49d7caa2c3f58bc2fdab8b6-1776517159-1776506359')">
+<img src="https://jiotvimages.cdn.jio.com/dare_images/images/channel/d775ae813cdc8095ee6b82b227a986cd.png">
+<p>Sony Ten 1</p>
+</div>
+
+<div class="channel" data-name="News24" onclick="playChannel('https://owrcovcrpy.gpcdn.net/bpk-tv/1708/output/index.m3u8')">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzlONl21nkrYm8ShUYMiN_rrMJaJh8gV1-k2_S_HYSfaeHpshK8RFlENDU&s=10">
+<p>News24</p>
+</div>
+
+<div class="channel" data-name="BTV" onclick="playChannel('https://owrcovcrpy.gpcdn.net/bpk-tv/1709/output/index.m3u8')">
+<img src="https://upload.wikimedia.org/wikipedia/en/0/02/Bangladesh_Television_Logo.svg">
+<p>BTV</p>
+</div>
+
+</div>
+
+<div class="footer">
+Live Sports | Cafe Appeliano TV
+</div>
+
+<script>
+function playChannel(link) {
+    document.getElementById("videoPlayer").src = link;
+    document.getElementById("bannerImg").style.display = "none";
+}
+
+function searchChannel() {
+    let input = document.getElementById("search").value.toLowerCase();
+    let channels = document.getElementsByClassName("channel");
+
+    for (let i = 0; i < channels.length; i++) {
+        let name = channels[i].getAttribute("data-name").toLowerCase();
+        channels[i].style.display = name.includes(input) ? "block" : "none";
+    }
+}
+</script>
+
+</body>
+</html>
+```
