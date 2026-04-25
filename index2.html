@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cafe Appeliano TV</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #0d0d0d;
+    color: white;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    padding: 15px;
+    font-size: 22px;
+    color: #ff0033;
+    font-weight: bold;
+}
+
+/* Search */
+.search-box {
+    padding: 10px;
+    text-align: center;
+}
+
+.search-box input {
+    width: 90%;
+    padding: 12px;
+    border-radius: 25px;
+    border: none;
+}
+
+/* Player */
+.player {
+    padding: 10px;
+}
+
+video {
+    width: 100%;
+    height: 180px;   /* 👉 TV friendly size */
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Channel Slider */
+.channel-slider {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.channels {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 10px;
+    padding: 10px;
+}
+
+.channels::-webkit-scrollbar {
+    display: none;
+}
+
+.channel {
+    min-width: 100px;
+    background: #1a1a1a;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.channel img {
+    width: 60px;
+}
+
+.scroll-btn {
+    position: absolute;
+    background: red;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.left { left: 0; }
+.right { right: 0; }
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: yellow;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">Cafe Appeliano TV</div>
+
+<div class="search-box">
+<input type="text" id="search" placeholder="Search channel..." onkeyup="searchChannel()">
+</div>
+
+
+<!-- 🎬 Player -->
+<div class="player">
+<video id="videoPlayer" controls></video>
+</div>
+
+<!-- 📺 Channel Slider -->
+<div class="channel-slider">
+
+<button class="scroll-btn left" onclick="scrollLeft()">❮</button>
+
+<div class="channels" id="channelContainer">
+
+<div class="channel" data-name="FOX Sports 1" onclick="playChannel('http://84.17.50.102/foxsports1/index.m3u8')">
+<img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Fox_Sports_Netherlands_Logo.png">
+<p>FOX Sports 1</p>
+</div>
+
+<div class="channel" data-name="Star sports 1" onclick="playChannel('https://taimoor.pro.bd/live/otvs/playex.php?m3u8=167575&token=21d961df0428ebd7adfd6f5b13674917dd9ca6152f6b37d373c034adac93cfef&exp=1777117532')">
+<img src="https://i.postimg.cc/N0sYHFDj/20251002_230032.png">
+<p>Star Sports 1</p>
+</div>
+
+<div class="channel" data-name="A Sports" onclick="playChannel('https://taimoor.pro.bd/live/otvs/playex.php?m3u8=221417&token=c8e6f9a34826b92f0b4d6bc5da8791c014e34dcec61733321a0377f8aae5d026&exp=1777117192')">
+<img src="https://i.postimg.cc/ZqbZdnHq/20251002_225834.png">
+<p> A sports </p>
+</div>
+
+</div>
+
+<button class="scroll-btn right" onclick="scrollRight()">❯</button>
+
+</div>
+
+<div class="footer">
+⚽ Live TV | Cafe Appeliano TV
+</div>
+
+<script>
+
+
+function nextSlide() {
+    i = (i + 1) % images.length;
+    document.getElementById("slideImg").src = images[i];
+}
+
+function prevSlide() {
+    i = (i - 1 + images.length) % images.length;
+    document.getElementById("slideImg").src = images[i];
+}
+
+/* Channel Scroll */
+function scrollLeft() {
+    document.getElementById("channelContainer").scrollBy({ left: -200, behavior: 'smooth' });
+}
+
+function scrollRight() {
+    document.getElementById("channelContainer").scrollBy({ left: 200, behavior: 'smooth' });
+}
+
+/* Video Play (Auto) */
+function playChannel(link) {
+    let player = document.getElementById("videoPlayer");
+    player.src = link;
+    player.muted = true;
+    player.play();
+}
+
+/* Search */
+function searchChannel() {
+    let input = document.getElementById("search").value.toLowerCase();
+    let channels = document.getElementsByClassName("channel");
+
+    for (let j = 0; j < channels.length; j++) {
+        let name = channels[j].getAttribute("data-name").toLowerCase();
+        channels[j].style.display = name.includes(input) ? "block" : "none";
+    }
+}
+
+</script>
+
+</body>
+</html>
