@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,62 +5,73 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cafe Appeliano TV</title>
 
-<meta name="description" content="Watch live sports TV online - Cafe Appeliano TV">
-
 <style>
 body {
     margin: 0;
     font-family: Arial;
-    background: black;
+    background: #0d0d0d;
     color: white;
 }
 
+/* Header */
 .header {
     text-align: center;
     padding: 15px;
     font-size: 22px;
-    color: red;
+    color: #ff0033;
     font-weight: bold;
 }
 
+/* Search */
 .search-box {
-    text-align: center;
     padding: 10px;
+    text-align: center;
 }
 
 .search-box input {
     width: 90%;
-    padding: 10px;
-    border-radius: 20px;
+    padding: 12px;
+    border-radius: 25px;
     border: none;
 }
 
-.banner img {
-    width: 100%;
-    border-radius: 10px;
-}
-
+/* Player */
 .player {
     padding: 10px;
 }
 
 video {
     width: 100%;
+    height: 180px;   /* 👉 TV friendly size */
+    object-fit: cover;
     border-radius: 10px;
 }
 
+/* Channel Slider */
+.channel-slider {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
 .channels {
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
     gap: 10px;
     padding: 10px;
 }
 
+.channels::-webkit-scrollbar {
+    display: none;
+}
+
 .channel {
-    background: #111;
+    min-width: 100px;
+    background: #1a1a1a;
     padding: 10px;
-    text-align: center;
     border-radius: 10px;
+    text-align: center;
     cursor: pointer;
 }
 
@@ -69,10 +79,25 @@ video {
     width: 60px;
 }
 
+.scroll-btn {
+    position: absolute;
+    background: red;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.left { left: 0; }
+.right { right: 0; }
+
+/* Footer */
 .footer {
     text-align: center;
     padding: 20px;
-    color: yellowgreen;
+    color: yellow;
 }
 </style>
 </head>
@@ -82,57 +107,35 @@ video {
 <div class="header">Cafe Appeliano TV</div>
 
 <div class="search-box">
-<input type="text" id="search" placeholder="Search..." onkeyup="searchChannel()">
+<input type="text" id="search" placeholder="Search channel..." onkeyup="searchChannel()">
 </div>
 
 
-
+<!-- 🎬 Player -->
 <div class="player">
 <video id="videoPlayer" controls></video>
 </div>
 
+<!-- 📺 Channel Slider -->
+<div class="channel-slider">
 
+<button class="scroll-btn left" onclick="scrollLeft()">❮</button>
 
-<div class="channels">
-
-<div class="channel" data-name="T Sports" onclick="playChannel('https://taimoor.pro.bd/live/otvs/playex.php?m3u8=167590&token=ff3d40b5d5218508debfe630c514da72110a422e1381d7743af9ff277ee7eb46&exp=1777104734')">
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXEt0mLEbCc7_nwOltfVTtRh95_ytannxqgaeskHI0rfCxd85v3LSaeZ4&s=10">
-<p>T Sports</p>
-</div>
-
-<div class="channel" data-name="A sports" onclick="playChannel('https://taimoor.pro.bd/live/otvs/playex.php?m3u8=221417&token=21b499f8758392fb94fe11afd27c12380d3c2d30b0187fb0f7d1f9020626a27d&exp=1777055227')">
-<img src="https://tvassets.roarzone.net/images/add-sports-1.png">
-<p>A Sports</p>
-</div>
+<div class="channels" id="channelContainer">
 
 <div class="channel" data-name="FOX Sports 1" onclick="playChannel('http://84.17.50.102/foxsports1/index.m3u8')">
 <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Fox_Sports_Netherlands_Logo.png">
 <p>FOX Sports 1</p>
 </div>
 
-<div class="channel" data-name=Deepto Tv" onclick="playChannel('https://owrcovcrpy.gpcdn.net/bpk-tv/1711/output/index.m3u8')">
-<img src="https://tstatic.akash-go.com/cms-ui/images/custom-content/1742713000749.png">
-<p>Deepto Tv</p>
+<div class="channel" data-name="Star sports 1" onclick="playChannel('https://taimoor.pro.bd/live/otvs/playex.php?m3u8=167575&token=21d961df0428ebd7adfd6f5b13674917dd9ca6152f6b37d373c034adac93cfef&exp=1777117532')">
+<img src="https://i.postimg.cc/N0sYHFDj/20251002_230032.png">
+<p>Star Sports 1</p>
 </div>
 
-<div class="channel" data-name="TNT Sports " onclick="playChannel('http://mm@flussonic.deltainfonet.com/02_TSPORTS/tracks-v1a1/mono.m3u8')">
-<img src="https://static.wikia.nocookie.net/logopedia/images/1/13/TNT_Sports_4_Stacked.svg/revision/latest/scale-to-width-down/250?cb=20260225235815">
-<p>TNT Sports 4</p>
-</div>
-
-<div class="channel" data-name="BTV" onclick="playChannel('https://owrcovcrpy.gpcdn.net/bpk-tv/1709/output/index.m3u8')">
-<img src="https://upload.wikimedia.org/wikipedia/en/0/02/Bangladesh_Television_Logo.svg">
-<p>BTV</p>
-</div>
-
-<div class="channel" data-name="BTV" onclick="playChannel('https://bd-mc-fblive.fancode.com/mumbai/142068_english_hls_29d319152e29161_1ta-di_h264/index.m3u8')">
-<img src="https://bhalobet.news/wp-content/uploads/2026/04/Bangladesh-vs-New-Zealand-2nd-ODI-Match-Prediction-2026-1024x576.jpg">
-<p>Ban Vs New</p>
-</div>
-
-<div class="channel" data-name="Bangladesh-w vs SriLanka-w" onclick="playChannel('https://fancode-bd-srhady.vercel.app/sri_lanka_women_vs_bangladesh_women_142072_english.m3u8')">
-<img src="https://i.ytimg.com/vi/5dmEU8ogAhE/hq720.jpg?v=69e58c7f&sqp=CPycls8G-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCk7dHk84nd0G_TCDsKldT9c46lfg">
-<p>Bangladesh-w vs SriLanka-w</p>
+<div class="channel" data-name="A Sports" onclick="playChannel('https://taimoor.pro.bd/live/otvs/playex.php?m3u8=221417&token=c8e6f9a34826b92f0b4d6bc5da8791c014e34dcec61733321a0377f8aae5d026&exp=1777117192')">
+<img src="https://i.postimg.cc/ZqbZdnHq/20251002_225834.png">
+<p> A sports </p>
 </div>
 
 <div class="channel" data-name="DEIN SPORTS XTRA" onclick="playChannel('https://bein-esp-xumo.amagi.tv/playlistR1080p.m3u8')">
@@ -140,91 +143,67 @@ video {
 <p>DEIN SPORTS XTRA</p>
 </div>
 
-<div class="channel" data-name="SATV" onclick="playChannel('https://owrcovcrpy.gpcdn.net/bpk-tv/1720/output/index.m3u8')">
-<img src="https://i.imgur.com/j8JlVp7.jpeg">
-<p>SATV HD</p>
-</div>
-
 <div class="channel" data-name="Now sports Tv" onclick="playChannel('https://eventcdn02-nowe.akamaized.net/hls/CH621/index.m3u8')">
 <img src="https://images.now-tv.com/shares/channelPreview/img/en_hk/color/ch621_425_305">
 <p>Now sports Tv</p>
 </div>
 
-<div class="channel" data-name="Star sports 1" onclick="playChannel('https://edge2.roarzone.net:8447/roarzone/edge2/star-sports-1/index.m3u8?token=e0ead347b4bd9e86356cb9f1c6abecb3daf6b6b5-eb5fdd2d631dd1d7af4b9e614da330af-1776768876-1776758076')">
-<img src="https://e7.pngegg.com/pngimages/214/781/png-clipart-star-sports-sony-ten-star-india-television-channel-others-miscellaneous-television.png">
-<p>Star sports 1</p>
+<div class="channel" data-name="BTV" onclick="playChannel('https://owrcovcrpy.gpcdn.net/bpk-tv/1709/output/1709-audio_113392_eng=113200-video=1692000.m3u8')">
+<img src="https://i.postimg.cc/JnWdHSrq/20250529-071604.png">
+<p>BTV</p>
 </div>
 
-<div class="channel" data-name="Star sports 2" onclick="playChannel('https://edge2.roarzone.net:8447/roarzone/edge2/star-sports-2/index.m3u8?token=52d273c24b40ad21c944a0c8d557b7470b72876d-10f80d78ae40a146412b5dd7a818c4cc-1776768956-1776758156')">
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6rC5nKFQjttoxY-qb66PyQdXQu8f2Nqfhq48_f7PRjWHP84GTRSWmxRtE&s=10">
-<p>Star sports 2</p>
 </div>
 
-<div class="channel" data-name="STAR SPORTS SELECT 1" onclick="playChannel('https://edge2.roarzone.net:8447/roarzone/edge2/star-sports-select-1/index.m3u8?token=2d70938e34e8a627fbc5334a11f0d28372a8b8e2-b3678d1fef649abb72323536d039c228-1776769024-1776758224')">
-<img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Star_Sports_Select_logo.png">
-<p>STAR SPORTS SELECT 1</p>
-</div>
-
-<div class="channel" data-name="STAR SPORTS SELECT 2" onclick="playChannel('https://edge2.roarzone.net:8447/roarzone/edge2/star-sports-select-2/index.m3u8?token=6662fe1491e31f1e872cb24d141cb4fc05d85a07-63f9a939eef29b027ce8a668448d42f2-1776769080-1776758280')">
-<img src="https://tvassets.roarzone.net/images/28.png">
-<p>STAR SPORTS SELECT 2</p>
-</div>
-
-<div class="channel" data-name="Ptv sports  " onclick="playChannel('https://edge2.roarzone.net:8447/roarzone/edge2/ptv-sports/index.m3u8?token=c80de0a2dca529d5f2e66b180808e6350129f4d6-536e9dd47fc8c86945704f0ab00bdd1f-1776769151-1776758351')">
-<img src="https://upload.wikimedia.org/wikipedia/en/thumb/e/e4/PTV_Sports.png/250px-PTV_Sports.png">
-<p>PTV sports </p>
-</div>
-
-<div class="channel" data-name="Sony ten 1" onclick="playChannel('https://edge2.roarzone.net:8447/roarzone/edge3/sony-sports-ten-1-hd/index.m3u8?token=84df37b5a18d567edf28e8622dade81cd5521840-4ddd4e3afb9bfe14c707255ff615397c-1776771646-1776760846')">
-<img src="https://tvassets.roarzone.net/images/20.png">
-<p>sony Ten 1</p>
-</div>
-
-<div class="channel" data-name="Sony ten 2 " onclick="playChannel('https://edge2.roarzone.net:8447/roarzone/edge3/sony-sports-ten-2-hd/index.m3u8?token=f978c7128cc2b0b47c72eaa9fb43b4b0e2ccf96a-a5744364a05eeb563c1ba5a69bf02ea9-1776771903-1776761103')">
-<img src="https://tvassets.roarzone.net/images/21.png">
-<p>sony Ten 2</p>
-</div>
-
-<div class="channel" data-name="Ten-Sports HD" onclick="playChannel('https://edge2.roarzone.net:8447/roarzone/edge4/Ten-Sports/index.m3u8?token=380d0e413b46bab3d21f8c1270015d854ae20b36-45f930b2d48c35d01942e9a2956741d0-1776772087-1776761287')">
-<img src="https://tvassets.roarzone.net/images/tensports.png">
-<p>Ten Sports HD</p>
-</div>
-
-<div class="channel" data-name="Ptv sports  " onclick="playChannel('https://edge2.roarzone.net:8447/roarzone/edge3/sony-ten-cricket/index.m3u8?token=76c98b08992a76b8912e7f8a538ac387bfaec476-6f6be4ab6308bbb9731d5007ef2b5ccd-1776772340-1776761540')">
-<img src="https://tvassets.roarzone.net/images/ten_cricket.png">
-<p>Ten cricket HD</p>
-</div>
-
-<div class="channel" data-name="discovery HD  " onclick="playChannel('https://edge2.roarzone.net:8447/roarzone/edge3/discovery-hd/index.m3u8?token=1701028941e214c71e532e60d932d312f7d982ad-4eb17cc3f6aab09adc6d4124e6167a46-1776772489-1776761689')">
-<img src="https://tvassets.roarzone.net/images/43.png">
-<p>discovery HD</p>
-</div>
+<button class="scroll-btn right" onclick="scrollRight()">❯</button>
 
 </div>
 
 <div class="footer">
-Live Sports | Cafe Appeliano TV
-</div>
-
-<div class="footer">
-Developed | Ashik Hossen 
+⚽ Live TV | Cafe Appeliano TV
 </div>
 
 <script>
-function playChannel(link) {
-    document.getElementById("videoPlayer").src = link;
-    document.getElementById("bannerImg").style.display = "none";
+
+
+function nextSlide() {
+    i = (i + 1) % images.length;
+    document.getElementById("slideImg").src = images[i];
 }
 
+function prevSlide() {
+    i = (i - 1 + images.length) % images.length;
+    document.getElementById("slideImg").src = images[i];
+}
+
+/* Channel Scroll */
+function scrollLeft() {
+    document.getElementById("channelContainer").scrollBy({ left: -200, behavior: 'smooth' });
+}
+
+function scrollRight() {
+    document.getElementById("channelContainer").scrollBy({ left: 200, behavior: 'smooth' });
+}
+
+/* Video Play (Auto) */
+function playChannel(link) {
+    let player = document.getElementById("videoPlayer");
+    player.src = link;
+    player.muted = true;
+    player.play();
+}
+
+/* Search */
 function searchChannel() {
     let input = document.getElementById("search").value.toLowerCase();
     let channels = document.getElementsByClassName("channel");
 
-    for (let i = 0; i < channels.length; i++) {
-        let name = channels[i].getAttribute("data-name").toLowerCase();
-        channels[i].style.display = name.includes(input) ? "block" : "none";
+    for (let j = 0; j < channels.length; j++) {
+        let name = channels[j].getAttribute("data-name").toLowerCase();
+        channels[j].style.display = name.includes(input) ? "block" : "none";
     }
 }
+
 </script>
 
 </body>
