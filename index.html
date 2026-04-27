@@ -43,7 +43,7 @@ body {
 
 video {
     width: 100%;
-    height: 220px;   /* 👉 TV friendly size */
+    height: 180px;  
     object-fit: cover;
     border-radius: 10px;
 }
@@ -123,6 +123,11 @@ video {
 <button class="scroll-btn left" onclick="scrollLeft()">❮</button>
 
 <div class="channels" id="channelContainer">
+
+<div class="channel" data-name="DEIN SPORTS XTRA" onclick="playChannel('https://fancode-bd-srhady.vercel.app/new_zealand_vs_bangladesh_142069_english.m3u8')">
+<img src="https://www.fancode.com/skillup-uploads/cms-media/BAn-vs-NZ_ODIs_fc-web_1777018794830.jpg">
+<p>Bangladesh 🆚 newzealand </p>
+</div>
 
 <div class="channel" data-name="PSL" onclick="playChannel('https://bpl24middleeast.akamaized.net/hls/live/2109311/P2s6L-W2o9r3l5d_Feed/master.m3u8')">
 <img src="https://repgyetdcodkynrbxocg.supabase.co/storage/v1/object/public/images/telegram-1777197865284-dea4bd60.jpg">
